@@ -17,9 +17,9 @@
 		"build": "react-scripts build",
 		"eject": "react-scripts eject",
 		"test:unit": "react-scripts test",
-		"test:lint": "eslint --ext .ts --ext .tsx .",
-		"test:lint:fix": "npm run test:lint -- --fix",
-		"test": "npm run test:lint && npm run test:unit"
+		"lint": "eslint --ext .ts --ext .tsx .",
+		"lint:fix": "npm run test:lint -- --fix",
+		"test": "npm run lint && npm run test:unit"
 	},
 	"jest": {
 		"verbose": true
