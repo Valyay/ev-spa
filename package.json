@@ -21,9 +21,6 @@
 		"lint:fix": "npm run test:lint -- --fix",
 		"test": "npm run lint && npm run test:unit"
 	},
-	"jest": {
-		"verbose": true
-	},
 	"husky": {
 		"hooks": {
 			"pre-commit": "lint-staged"
