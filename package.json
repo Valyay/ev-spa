@@ -55,6 +55,7 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "src/*.{js,jsx,ts,tsx}",
+      "!src/serviceWorker.ts",
       "!<rootDir>/node_modules/",
       "!<rootDir>/path/to/dir/"
     ],
