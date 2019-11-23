@@ -23,7 +23,7 @@
     "test:unit": "react-scripts test",
     "lint": "eslint --ext .ts --ext .tsx .",
     "lint:fix": "npm run test:lint -- --fix",
-    "test": "npm run lint && npm run test:unit"
+    "test": "npm run lint && npm run test:unit -- --coverage"
   },
   "husky": {
     "hooks": {
