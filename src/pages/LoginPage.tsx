@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { withFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
+import { History, LocationState } from 'history';
 
 interface LoginValues {
     email: string;
@@ -8,6 +9,7 @@ interface LoginValues {
 }
 
 interface LoginProps {
+    history: History<LocationState>;
     initialEmail?: string;
     initialPassword?: string;
 }
@@ -84,7 +86,8 @@ const LoginPage = withFormik<LoginProps, LoginValues>({
     }),
 
     handleSubmit({ email, password }: LoginValues, { props, setSubmitting, setErrors }) {
-        console.log(email, password);
+        localStorage.setItem('auth', 'true');
+        props.history.push('/');
     }
 })(LoginForm);
 
