@@ -1,8 +1,14 @@
-import * as React from 'react';
-import { withFormik, FormikProps } from 'formik';
+import React, { useState } from 'react';
+import { withFormik, FormikProps, Field, InjectedFormikProps } from 'formik';
 import * as Yup from 'yup';
 import { History, LocationState } from 'history';
 import Button from '@material-ui/core/Button';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import LockIcon from '@material-ui/icons/Lock';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {
     LoginContainer,
     Form,
@@ -16,15 +22,23 @@ import logo from '../images/logo.png';
 interface LoginValues {
     email: string;
     password: string;
+    showPassword: boolean;
+}
+
+interface State {
+    showPassword: boolean;
 }
 
 interface LoginProps {
     history: History<LocationState>;
     initialEmail?: string;
     initialPassword?: string;
+    initShowPassword?: boolean;
 }
+export const MyInnerForm: React.FC<State &
+    InjectedFormikProps<LoginProps, LoginValues>> = props => {
+    const [showPassword, setShowPassword] = useState(false);
 
-export const LoginForm = (props: FormikProps<LoginValues>) => {
     const {
         values,
         touched,
@@ -36,6 +50,15 @@ export const LoginForm = (props: FormikProps<LoginValues>) => {
         handleReset,
         isSubmitting
     } = props;
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDownPassword = event => {
+        event.preventDefault();
+    };
+
     return (
         <LoginContainer>
             <Form onSubmit={handleSubmit}>
@@ -53,7 +76,6 @@ export const LoginForm = (props: FormikProps<LoginValues>) => {
                 <InputContainer>
                     <CustomField
                         id="email"
-                        label="Email"
                         placeholder="Enter your email"
                         type="email"
                         onChange={handleChange}
@@ -61,17 +83,41 @@ export const LoginForm = (props: FormikProps<LoginValues>) => {
                         value={values.email}
                         error={errors.email && touched.email ? true : false}
                         helperText={errors.email && touched.email && errors.email}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <PermIdentityIcon></PermIdentityIcon>
+                                </InputAdornment>
+                            )
+                        }}
                     />
                     <CustomField
                         id="password"
-                        label="Password"
                         placeholder="Enter your password"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.password}
                         error={errors.email && touched.email ? true : false}
                         helperText={errors.password && touched.password && errors.password}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <LockIcon></LockIcon>
+                                </InputAdornment>
+                            ),
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     />
                 </InputContainer>
                 <ButtonContainer>
@@ -100,10 +146,11 @@ export const LoginForm = (props: FormikProps<LoginValues>) => {
     );
 };
 
-const LoginPage = withFormik<LoginProps, LoginValues>({
+const LoginPage = withFormik<State & LoginProps, LoginValues>({
     mapPropsToValues: props => ({
         email: props.initialEmail || '',
-        password: props.initialPassword || ''
+        password: props.initialPassword || '',
+        showPassword: props.initShowPassword || false
     }),
 
     validationSchema: Yup.object().shape({
@@ -117,6 +164,6 @@ const LoginPage = withFormik<LoginProps, LoginValues>({
         localStorage.setItem('auth', 'true');
         props.history.push('/');
     }
-})(LoginForm);
+})(MyInnerForm);
 
 export default LoginPage;
