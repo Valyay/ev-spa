@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withFormik, FormikProps, Field, InjectedFormikProps } from 'formik';
+import { withFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { History, LocationState } from 'history';
 import Button from '@material-ui/core/Button';
@@ -15,6 +15,7 @@ import {
     CustomButton,
     InputContainer,
     ButtonContainer,
+    ResetContainer,
     CustomField
 } from '../styles/LoginPage';
 import logo from '../images/logo.png';
@@ -35,8 +36,7 @@ interface LoginProps {
     initialPassword?: string;
     initShowPassword?: boolean;
 }
-export const MyInnerForm: React.FC<State &
-    InjectedFormikProps<LoginProps, LoginValues>> = props => {
+export const MyInnerForm: React.FC<State & FormikProps<LoginValues>> = props => {
     const [showPassword, setShowPassword] = useState(false);
 
     const {
@@ -119,7 +119,11 @@ export const MyInnerForm: React.FC<State &
                             )
                         }}
                     />
+                    <ResetContainer>
+                        <span>Forgot password ?</span>
+                    </ResetContainer>
                 </InputContainer>
+
                 <ButtonContainer>
                     <Button
                         type="button"

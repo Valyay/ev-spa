@@ -24,7 +24,14 @@ export const Form = styled.form`
 
 export const InputContainer = styled.div`
     width: 100%;
-    height: 150px;
+`;
+
+export const ResetContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 `;
 
 export const CustomField = styled(TextField)({
