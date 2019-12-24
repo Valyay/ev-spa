@@ -9,6 +9,7 @@
         "@types/node": "^12.12.8",
         "@types/react": "^16.9.11",
         "@types/react-dom": "^16.9.4",
+        "@types/styled-components": "^4.4.1",
         "@types/yup": "^0.26.26",
         "cross-env": "^6.0.3",
         "formik": "^2.0.6",

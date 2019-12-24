@@ -34,6 +34,19 @@ export const ResetContainer = styled.div`
     width: 100%;
 `;
 
+export const SocialContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+`;
+
+export const IconContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+`;
+
 export const CustomField = styled(TextField)({
     width: '100%'
 });

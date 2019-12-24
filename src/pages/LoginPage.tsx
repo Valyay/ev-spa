@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { withFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { History, LocationState } from 'history';
-import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import LockIcon from '@material-ui/icons/Lock';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -16,9 +17,10 @@ import {
     InputContainer,
     ButtonContainer,
     ResetContainer,
-    CustomField
+    CustomField,
+    SocialContainer,
+    IconContainer
 } from '../styles/LoginPage';
-import logo from '../images/logo.png';
 
 interface LoginValues {
     email: string;
@@ -39,17 +41,7 @@ interface LoginProps {
 export const MyInnerForm: React.FC<State & FormikProps<LoginValues>> = props => {
     const [showPassword, setShowPassword] = useState(false);
 
-    const {
-        values,
-        touched,
-        dirty,
-        errors,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        handleReset,
-        isSubmitting
-    } = props;
+    const { values, touched, errors, handleChange, handleBlur, handleSubmit, isSubmitting } = props;
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -63,16 +55,6 @@ export const MyInnerForm: React.FC<State & FormikProps<LoginValues>> = props => 
         <LoginContainer>
             <Form onSubmit={handleSubmit}>
                 <h1 style={{ textAlign: 'center' }}>Welcome!</h1>
-                <img
-                    style={{
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                        height: '50px',
-                        width: '50px'
-                    }}
-                    src={logo}
-                    alt="logo"
-                />
                 <InputContainer>
                     <CustomField
                         id="email"
@@ -123,16 +105,14 @@ export const MyInnerForm: React.FC<State & FormikProps<LoginValues>> = props => 
                         <span>Forgot password ?</span>
                     </ResetContainer>
                 </InputContainer>
-
+                <SocialContainer>
+                    <span style={{ textAlign: 'center' }}>Or sign up with using</span>
+                    <IconContainer>
+                        <FacebookIcon fontSize="large" color="primary" />
+                        <TwitterIcon fontSize="large" color="primary" />
+                    </IconContainer>
+                </SocialContainer>
                 <ButtonContainer>
-                    <Button
-                        type="button"
-                        className="outline"
-                        onClick={handleReset}
-                        disabled={!dirty || isSubmitting}
-                    >
-                        Reset
-                    </Button>
                     <CustomButton
                         type="submit"
                         disabled={
