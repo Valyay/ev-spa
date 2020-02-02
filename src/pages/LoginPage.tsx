@@ -38,7 +38,7 @@ interface LoginProps {
     initialPassword?: string;
     initShowPassword?: boolean;
 }
-export const MyInnerForm: React.FC<State & FormikProps<LoginValues>> = props => {
+export const LoginForm: React.FC<State & FormikProps<LoginValues>> = props => {
     const [showPassword, setShowPassword] = useState(false);
 
     const { values, touched, errors, handleChange, handleBlur, handleSubmit, isSubmitting } = props;
@@ -148,6 +148,6 @@ const LoginPage = withFormik<State & LoginProps, LoginValues>({
         localStorage.setItem('auth', 'true');
         props.history.push('/');
     }
-})(MyInnerForm);
+})(LoginForm);
 
 export default LoginPage;
